@@ -26,7 +26,7 @@ jobs:
       run: echo "##[add-path]$(go env GOPATH)/bin"
     - run: go get github.com/cugu/go-resources/cmd/resources
 
-    - run: resources -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
+    - run: resources -trim "/cti-stix2-json-schemas" -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
     - name: Upload
       uses: actions/upload-artifact@master
       with:
