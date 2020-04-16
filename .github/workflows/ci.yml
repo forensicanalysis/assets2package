@@ -1,0 +1,38 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: forensicanalysis/stixgo
+        path: stixgo
+        ssh-key: ${{ secrets.STIXGO_DEPLOY_KEY }}
+    - uses: actions/checkout@v2
+      with:
+        repository: oasis-open/cti-stix2-json-schemas
+        path: cti-stix2-json-schemas
+
+    - name: Setup go 1.13
+      uses: actions/setup-go@v1
+      with: {go-version: '1.13'}
+    - name: Set system path
+      run: echo "##[add-path]$(go env GOPATH)/bin"
+    - run: go get github.com/cugu/go-resources/cmd/resources
+
+    - run: resources -trim "cti-stix2-json-schemas/schemas/" -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
+
+    - name: Commit files
+      run: |
+        git config --global user.email "git@cugu.eu"
+        git config --global user.name "Asset Bot"
+        git add assets.go
+        git commit -m "Update assets"
+        git push origin master
+      working-directory: stixgo
