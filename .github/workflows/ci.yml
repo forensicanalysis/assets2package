@@ -1,0 +1,44 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: forensicanalysis/stixgo
+        path: stixgo
+        persist-credentials: false
+        ssh-key: ${{ secrets.STIXGO_DEPLOY_KEY }}
+    - uses: actions/checkout@v2
+      with:
+        repository: oasis-open/cti-stix2-json-schemas
+        path: cti-stix2-json-schemas
+
+    - name: Setup go 1.13
+      uses: actions/setup-go@v1
+      with: {go-version: '1.13'}
+    - name: Set system path
+      run: echo "##[add-path]$(go env GOPATH)/bin"
+    - run: go get github.com/cugu/go-resources/cmd/resources
+
+    - run: resources -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
+    - name: Upload
+      uses: actions/upload-artifact@master
+      with:
+        name: stixgo
+        path: stixgo
+
+  #  - name: Commit files
+  #    run: |
+  #      git config --local user.email "action@github.com"
+  #      git config --local user.name "GitHub Action"
+  #      git add .
+  #      git tag -a ${{ GITHUB_REF }} -m ${{ GITHUB_REF }}
+  #      git commit -m "Update ${{ GITHUB_REF }}"
+  #      git push origin master
+  #    working-directory: stixgo
