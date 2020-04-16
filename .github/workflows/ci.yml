@@ -35,6 +35,8 @@ jobs:
 
     - name: Commit files
       run: |
+        git config --global user.email "git@cugu.eu"
+        git config --global user.name "Asset Bot"
         git add assets.go
         git commit -m "Update assets"
         git push origin master
