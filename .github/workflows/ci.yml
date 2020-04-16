@@ -26,19 +26,16 @@ jobs:
       run: echo "##[add-path]$(go env GOPATH)/bin"
     - run: go get github.com/cugu/go-resources/cmd/resources
 
-    - run: resources -trim "cti-stix2-json-schemas" -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
+    - run: resources -trim "cti-stix2-json-schemas/schemas/" -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
     - name: Upload
       uses: actions/upload-artifact@master
       with:
         name: stixgo
         path: stixgo
 
-  #  - name: Commit files
-  #    run: |
-  #      git config --local user.email "action@github.com"
-  #      git config --local user.name "GitHub Action"
-  #      git add .
-  #      git tag -a ${{ GITHUB_REF }} -m ${{ GITHUB_REF }}
-  #      git commit -m "Update ${{ GITHUB_REF }}"
-  #      git push origin master
-  #    working-directory: stixgo
+    - name: Commit files
+      run: |
+        git add assets.go
+        git commit -m "Update assets"
+        git push origin master
+      working-directory: stixgo
