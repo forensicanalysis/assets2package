@@ -14,7 +14,7 @@ jobs:
       with: {go-version: '1.13'}
     - name: Set system path
       run: echo "##[add-path]$(go env GOPATH)/bin"
-    - run: go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports
+    - run: GO111MODULE=on go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports
     - name: Checkout code
       uses: actions/checkout@v2
 
