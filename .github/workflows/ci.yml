@@ -12,7 +12,6 @@ jobs:
       with:
         repository: forensicanalysis/stixgo
         path: stixgo
-        persist-credentials: false
         ssh-key: ${{ secrets.STIXGO_DEPLOY_KEY }}
     - uses: actions/checkout@v2
       with:
