@@ -2,7 +2,8 @@ name: CI
 on:
   push:
     branches: [ master ]
-  pull_request:
+  schedule:
+    - cron:  '0 0 * * *'
 
 jobs:
   build:
@@ -26,11 +27,6 @@ jobs:
     - run: go get github.com/cugu/go-resources/cmd/resources
 
     - run: resources -trim "cti-stix2-json-schemas/schemas/" -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
-    - name: Upload
-      uses: actions/upload-artifact@master
-      with:
-        name: stixgo
-        path: stixgo
 
     - name: Commit files
       run: |
