@@ -15,21 +15,23 @@ jobs:
     - name: Set system path
       run: echo "##[add-path]$(go env GOPATH)/bin"
     - run: GO111MODULE=on go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports
-    - name: Checkout code
+    - name: Checkout assets2package
       uses: actions/checkout@v2
 
     # stix
-    - uses: actions/checkout@v2
+    - name: Checkout forensicanalysis/stixgo
+      uses: actions/checkout@v2
       with:
         repository: forensicanalysis/stixgo
         path: stixgo
         ssh-key: ${{ secrets.STIXGO_DEPLOY_KEY }}
-    - uses: actions/checkout@v2
+    - name: Checkout oasis-open/cti-stix2-json-schemas
+      uses: actions/checkout@v2
       with:
         repository: oasis-open/cti-stix2-json-schemas
         path: cti-stix2-json-schemas
     - run: resources -trim "cti-stix2-json-schemas/schemas/" -package stixgo -output stixgo/assets.go cti-stix2-json-schemas/schemas/*/*
-    - name: Commit files
+    - name: Commit stixgo
       run: |
         git config --global user.email "git@cugu.eu"
         git config --global user.name "Asset Bot"
@@ -40,21 +42,23 @@ jobs:
       continue-on-error: true
 
     # artifactsgo
-    - uses: actions/checkout@v2
+    - name: Checkout forensicanalysis/artifactsgo
+      uses: actions/checkout@v2
       with:
         repository: forensicanalysis/artifactsgo
         path: artifactsgo
         ssh-key: ${{ secrets.ARTIFACTSGO_DEPLOY_KEY }}
-    - uses: actions/checkout@v2
+    - name: Checkout forensicanalysis/artifacts
+      uses: actions/checkout@v2
       with:
         repository: forensicanalysis/artifacts
         path: artifacts
     - run: go run artifacts2go.go artifacts/*.yaml
-    - name: Commit files
+    - name: Commit artifactsgo
       run: |
         git config --global user.email "git@cugu.eu"
         git config --global user.name "Asset Bot"
-        git add assets.go
+        git add .
         git commit -m "Update assets"
         git push origin master
       working-directory: artifactsgo
