@@ -60,6 +60,10 @@ if os.path.exists(OUTPUT_FOLDER):
     shutil.rmtree(OUTPUT_FOLDER)
 
 os.makedirs(OUTPUT_FOLDER)
+
+print(f"Copying package README...")
+shutil.copy('README.md.package', os.path.join(OUTPUT_FOLDER, 'README.md'))
+
 print(f"Writing schema definition file '{MODULE_NAME}.py'...")
 with open(os.path.join(OUTPUT_FOLDER, MODULE_NAME+'.py'), 'w') as file_handle:
     file_handle.write(my_module)
