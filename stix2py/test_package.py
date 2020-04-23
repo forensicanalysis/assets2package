@@ -12,3 +12,4 @@ if __name__ == '__main__':
     schemas = get_schemas()
     print("keys:", schemas.keys())
     print("file:", schemas['file'])
+    print("kill-chain-phase:", schemas['kill-chain-phase'])

@@ -4,7 +4,7 @@ import subprocess
 
 STIX_CHECKOUT_PATH = 'cti-stix2-json-schemas'
 STIX_REPOSITORY = 'https://github.com/oasis-open/cti-stix2-json-schemas.git'
-MODULE_NAME = 'stix_schemas'
+MODULE_NAME = 'forensicstore_stix_schemas'
 ENTRY_POINT_GROUP = 'forensicstore_schemas'
 OUTPUT_FOLDER = 'packaged'
 
@@ -13,6 +13,7 @@ from setuptools import setup
 
 setup(
     name="{MODULE_NAME}",
+    py_modules=['{MODULE_NAME}'],
     entry_points={{
         '{ENTRY_POINT_GROUP}': [
 '''
