@@ -2,12 +2,12 @@ import json
 import os, shutil
 import subprocess
 
-STIX_CHECKOUT_PATH = 'cti-stix2-json-schemas'
+STIX_CHECKOUT_PATH = '../cti-stix2-json-schemas'
 STIX_REPOSITORY = 'https://github.com/oasis-open/cti-stix2-json-schemas.git'
 MODULE_NAME = 'forensicstore_stix_schemas'
 ENTRY_POINT_GROUP = 'forensicstore_schemas'
 OUTPUT_FOLDER = 'packaged'
-VERSION = '2.1'
+VERSION = '2.1.0'
 AUTHOR = 'Demian Kellermann'
 AUTHOR_MAIL = 'demian.kellermann@siemens.com'
 URL = 'https://github.com/forensicanalysis/pyforensicstore_stix'

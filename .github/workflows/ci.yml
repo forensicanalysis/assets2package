@@ -12,6 +12,9 @@ jobs:
     - name: Setup go 1.13
       uses: actions/setup-go@v1
       with: {go-version: '1.13'}
+    - name: Setup python 3.7
+      uses: actions/setup-python@v1
+      with: {python-version: '3.7'}
     - name: Set system path
       run: echo "##[add-path]$(go env GOPATH)/bin"
     - run: GO111MODULE=on go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports
@@ -62,4 +65,24 @@ jobs:
         git commit -m "Update assets"
         git push origin master
       working-directory: artifactsgo
-      # continue-on-error: true
+      continue-on-error: true
+
+      # stixpy
+    - name: Build python package
+      run: python make_package.py
+      working-directory: stix2py
+    - name: Checkout forensicanalysis/pyforensicstore_stix
+      uses: actions/checkout@v2
+      with:
+        repository: forensicanalysis/pyforensicstore_stix
+        path: pyforensicstore_stix
+        ssh-key: ${{ secrets.STIXPY_DEPLOY_KEY }}
+    - run: mv stix2py/packaged/* pyforensicstore_stix
+    - name: Commit artifactsgo
+      run: |
+        git config --global user.email "demian.kellermann@siemens.com"
+        git config --global user.name "Asset Bot"
+        git add .
+        git commit -m "Update assets"
+        git push origin master
+      working-directory: pyforensicstore_stix
