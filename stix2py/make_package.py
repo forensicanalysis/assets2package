@@ -7,12 +7,20 @@ STIX_REPOSITORY = 'https://github.com/oasis-open/cti-stix2-json-schemas.git'
 MODULE_NAME = 'forensicstore_stix_schemas'
 ENTRY_POINT_GROUP = 'forensicstore_schemas'
 OUTPUT_FOLDER = 'packaged'
-
+VERSION = '2.1'
+AUTHOR = 'Demian Kellermann'
+AUTHOR_MAIL = 'demian.kellermann@siemens.com'
+URL='https://github.com/forensicanalysis/pyforensicstore_stix',
 SETUP_PY_SKEL_HEAD = f'''
 from setuptools import setup
 
 setup(
     name="{MODULE_NAME}",
+    author="{AUTHOR}",
+    author_email="{AUTHOR_MAIL}",
+    url="{URL}",
+    description="STIX 2.1 JSON schemas as a python provider",
+    version="{VERSION}",
     py_modules=['{MODULE_NAME}'],
     entry_points={{
         '{ENTRY_POINT_GROUP}': [
