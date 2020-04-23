@@ -10,7 +10,7 @@ OUTPUT_FOLDER = 'packaged'
 VERSION = '2.1'
 AUTHOR = 'Demian Kellermann'
 AUTHOR_MAIL = 'demian.kellermann@siemens.com'
-URL='https://github.com/forensicanalysis/pyforensicstore_stix',
+URL = 'https://github.com/forensicanalysis/pyforensicstore_stix'
 SETUP_PY_SKEL_HEAD = f'''
 from setuptools import setup
 
