@@ -17,17 +17,17 @@ jobs:
       with: {python-version: '3.7'}
     - run: GO111MODULE=on go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports
     - name: Checkout assets2package
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # stix
     - name: Checkout forensicanalysis/stixgo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: forensicanalysis/stixgo
         path: stixgo
         ssh-key: ${{ secrets.STIXGO_DEPLOY_KEY }}
     - name: Checkout oasis-open/cti-stix2-json-schemas
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: oasis-open/cti-stix2-json-schemas
         path: cti-stix2-json-schemas
@@ -44,13 +44,13 @@ jobs:
 
     # artifactsgo
     - name: Checkout forensicanalysis/artifactsgo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: forensicanalysis/artifactsgo
         path: artifactsgo
         ssh-key: ${{ secrets.ARTIFACTSGO_DEPLOY_KEY }}
     - name: Checkout forensicanalysis/artifacts
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: forensicanalysis/artifacts
         path: artifacts
@@ -70,7 +70,7 @@ jobs:
       run: python make_package.py
       working-directory: stix2py
     - name: Checkout forensicanalysis/pyforensicstore_stix
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: forensicanalysis/pyforensicstore_stix
         path: pyforensicstore_stix
