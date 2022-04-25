@@ -98,16 +98,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	flaws, err := goartifacts.ValidateFiles(artifactDefinitionFiles)
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, flaw := range flaws {
-		if flaw.Severity != goartifacts.Common {
-			log.Println(flaw.File, flaw.ArtifactDefinition, ":", flaw.Message)
-		}
-	}
-
 	err = createGoFile("artifactsgo", "artifacts", artifactDefinitions)
 	if err != nil {
 		log.Fatal(err)
