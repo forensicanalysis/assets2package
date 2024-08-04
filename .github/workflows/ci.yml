@@ -16,7 +16,7 @@ jobs:
     - name: Setup python 3.7
       uses: actions/setup-python@v4
       with: {python-version: '3.7'}
-    - run: GO111MODULE=on go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports
+    - run: GO111MODULE=on go get github.com/cugu/go-resources/cmd/resources@v0.3.0 golang.org/x/tools/cmd/goimports@v0.12.0
     - name: Checkout assets2package
       uses: actions/checkout@v3
 
